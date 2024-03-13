@@ -3,9 +3,49 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coling.API.Curriculum", "Coling.API.Curriculum\Coling.API.Curriculum.csproj", "{477442BE-4277-4CFA-B763-9D00063C8B8D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coling.API.Bolsatrabajo", "Coling.API.Bolsatrabajo\Coling.API.Bolsatrabajo.csproj", "{23DC7F87-A390-49C3-B034-7B845F9F7276}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIMicroservices", "APIMicroservices", "{542ABAEA-3967-49ED-A2C2-8ABD3F033CE9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{09FEAADD-3AE5-4A42-930F-0FD2C0F58550}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coling.Shared", "Coling.Shared\Coling.Shared.csproj", "{A1A2373B-6B1C-4A0E-BAA6-C85E4E52D6B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coling.API.Afiliado", "Coling.API.Afiliado\Coling.API.Afiliado.csproj", "{4AB06715-103E-4F39-99E8-F2FF342D764F}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{477442BE-4277-4CFA-B763-9D00063C8B8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{477442BE-4277-4CFA-B763-9D00063C8B8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{477442BE-4277-4CFA-B763-9D00063C8B8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{477442BE-4277-4CFA-B763-9D00063C8B8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23DC7F87-A390-49C3-B034-7B845F9F7276}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23DC7F87-A390-49C3-B034-7B845F9F7276}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23DC7F87-A390-49C3-B034-7B845F9F7276}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23DC7F87-A390-49C3-B034-7B845F9F7276}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1A2373B-6B1C-4A0E-BAA6-C85E4E52D6B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1A2373B-6B1C-4A0E-BAA6-C85E4E52D6B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1A2373B-6B1C-4A0E-BAA6-C85E4E52D6B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1A2373B-6B1C-4A0E-BAA6-C85E4E52D6B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AB06715-103E-4F39-99E8-F2FF342D764F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AB06715-103E-4F39-99E8-F2FF342D764F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AB06715-103E-4F39-99E8-F2FF342D764F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AB06715-103E-4F39-99E8-F2FF342D764F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{477442BE-4277-4CFA-B763-9D00063C8B8D} = {542ABAEA-3967-49ED-A2C2-8ABD3F033CE9}
+		{23DC7F87-A390-49C3-B034-7B845F9F7276} = {542ABAEA-3967-49ED-A2C2-8ABD3F033CE9}
+		{A1A2373B-6B1C-4A0E-BAA6-C85E4E52D6B4} = {09FEAADD-3AE5-4A42-930F-0FD2C0F58550}
+		{4AB06715-103E-4F39-99E8-F2FF342D764F} = {542ABAEA-3967-49ED-A2C2-8ABD3F033CE9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DEDF96F5-6460-462F-B027-DFFBDC38EC87}
