@@ -1,5 +1,4 @@
 using Coling.API.Afiliado.Contratos;
-using Coling.API.Afiliado.Implementacion;
 using Coling.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,26 +9,26 @@ using System.Net;
 
 namespace Coling.API.Afiliado.Endpoints
 {
-    public class PersonaFunction
+    public class TelefonoFunction
     {
-        private readonly ILogger<PersonaFunction> _logger;
-        private readonly IPersonaLogic personaLogic;
+        private readonly ILogger<TelefonoFunction> _logger;
+        private readonly ITelefonoLogic TelefonoLogic;
 
-        public PersonaFunction(ILogger<PersonaFunction> logger, IPersonaLogic personaLogic)
+        public TelefonoFunction(ILogger<TelefonoFunction> logger, ITelefonoLogic TelefonoLogic)
         {
             _logger = logger;
-            this.personaLogic = personaLogic;
+            this.TelefonoLogic = TelefonoLogic;
         }
 
-        [Function("ListarPersonas")]
-        public async Task<HttpResponseData> ListarPersonas([HttpTrigger(AuthorizationLevel.Function, "get", Route = "listarpersonas")] HttpRequestData req)
+        [Function("ListarTelefonos")]
+        public async Task<HttpResponseData> ListarTelefonos([HttpTrigger(AuthorizationLevel.Function, "get", Route = "listarTelefonos")] HttpRequestData req)
         {
-            _logger.LogInformation("Ejecutando azure function para isnertar personas.");
+            _logger.LogInformation("Ejecutando azure function para isnertar Telefonos.");
             try
             {
-                var listaPersonas = personaLogic.ListarPersonaTodos();
+                var listaTelefonos = TelefonoLogic.ListarTelefonoTodos();
                 var respuesta = req.CreateResponse(HttpStatusCode.OK);
-                await respuesta.WriteAsJsonAsync(listaPersonas.Result);
+                await respuesta.WriteAsJsonAsync(listaTelefonos.Result);
                 return respuesta;
             }
             catch (Exception e)
@@ -41,14 +40,14 @@ namespace Coling.API.Afiliado.Endpoints
 
         }
 
-        [Function("InsertarPersona")]
-        public async Task<HttpResponseData> InsertarPersona([HttpTrigger(AuthorizationLevel.Function, "post", Route = "insertarpersona")] HttpRequestData req)
+        [Function("InsertarTelefono")]
+        public async Task<HttpResponseData> InsertarTelefono([HttpTrigger(AuthorizationLevel.Function, "post", Route = "insertarTelefono")] HttpRequestData req)
         {
-            _logger.LogInformation("Ejecutando azure function para isnertar personas.");
+            _logger.LogInformation("Ejecutando azure function para isnertar Telefonos.");
             try
             {
-                var per = await req.ReadFromJsonAsync<Persona>() ?? throw new Exception("Debe ingresar una persona con todos sus datos");
-                bool seGuardo = await personaLogic.InsertarPersona(per);
+                var per = await req.ReadFromJsonAsync<Telefono>() ?? throw new Exception("Debe ingresar una Telefono con todos sus datos");
+                bool seGuardo = await TelefonoLogic.InsertarTelefono(per);
                 if (seGuardo)
                 {
                     var respuesta = req.CreateResponse(HttpStatusCode.OK);
@@ -64,13 +63,13 @@ namespace Coling.API.Afiliado.Endpoints
             }
 
         }
-        [Function("EliminarPersona")]
-        public async Task<HttpResponseData> EliminarPersona([HttpTrigger(AuthorizationLevel.Function, "delete", Route = "eliminarpersona/{id}")] HttpRequestData req, int id)
+        [Function("EliminarTelefono")]
+        public async Task<HttpResponseData> EliminarTelefono([HttpTrigger(AuthorizationLevel.Function, "delete", Route = "eliminarTelefono/{id}")] HttpRequestData req, int id)
         {
-            _logger.LogInformation($"Ejecutando azure function para eliminar persona con ID {id}");
+            _logger.LogInformation($"Ejecutando azure function para eliminar Telefono con ID {id}");
             try
             {
-                bool seElimino = await personaLogic.EliminarPersona(id);
+                bool seElimino = await TelefonoLogic.EliminarTelefono(id);
                 if (seElimino)
                 {
                     var respuesta = req.CreateResponse(HttpStatusCode.OK);
@@ -86,14 +85,14 @@ namespace Coling.API.Afiliado.Endpoints
             }
         }
 
-        [Function("ModificarPersona")]
-        public async Task<HttpResponseData> ModificarPersona([HttpTrigger(AuthorizationLevel.Function, "put", Route = "modificarpersona/{id}")] HttpRequestData req, int id)
+        [Function("ModificarTelefono")]
+        public async Task<HttpResponseData> ModificarTelefono([HttpTrigger(AuthorizationLevel.Function, "put", Route = "modificarTelefono/{id}")] HttpRequestData req, int id)
         {
-            _logger.LogInformation($"Ejecutando azure function para modificar persona con ID {id}");
+            _logger.LogInformation($"Ejecutando azure function para modificar Telefono con ID {id}");
             try
             {
-                var persona = await req.ReadFromJsonAsync<Persona>() ?? throw new Exception("Debe ingresar una persona con todos sus datos");
-                bool seModifico = await personaLogic.ModificarPersona(persona, id);
+                var Telefono = await req.ReadFromJsonAsync<Telefono>() ?? throw new Exception("Debe ingresar una Telefono con todos sus datos");
+                bool seModifico = await TelefonoLogic.ModificarTelefono(Telefono, id);
                 if (seModifico)
                 {
                     var respuesta = req.CreateResponse(HttpStatusCode.OK);
@@ -109,15 +108,15 @@ namespace Coling.API.Afiliado.Endpoints
             }
         }
 
-        [Function("ObtenerPersonaById")]
-        public async Task<HttpResponseData> ObtenerPersonaById([HttpTrigger(AuthorizationLevel.Function, "get", Route = "obtenerpersona/{id}")] HttpRequestData req, int id)
+        [Function("ObtenerTelefonoById")]
+        public async Task<HttpResponseData> ObtenerTelefonoById([HttpTrigger(AuthorizationLevel.Function, "get", Route = "obtenerTelefono/{id}")] HttpRequestData req, int id)
         {
-            _logger.LogInformation($"Ejecutando azure function para obtener persona con ID {id}");
+            _logger.LogInformation($"Ejecutando azure function para obtener Telefono con ID {id}");
             try
             {
-                var persona = await personaLogic.ObtnerPersonaById(id);
+                var Telefono = await TelefonoLogic.ObtnerTelefonoById(id);
                 var respuesta = req.CreateResponse(HttpStatusCode.OK);
-                await respuesta.WriteAsJsonAsync(persona);
+                await respuesta.WriteAsJsonAsync(Telefono);
                 return respuesta;
             }
             catch (Exception e)
@@ -127,6 +126,5 @@ namespace Coling.API.Afiliado.Endpoints
                 return error;
             }
         }
-
     }
 }

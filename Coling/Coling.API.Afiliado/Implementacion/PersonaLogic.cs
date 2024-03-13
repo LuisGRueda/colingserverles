@@ -18,9 +18,16 @@ namespace Coling.API.Afiliado.Implementacion
         {
             this.contexto = contexto;
         }
-        public Task<bool> EliminarPersona(int id)
+        public async Task<bool> EliminarPersona(int id)
         {
-            throw new NotImplementedException();
+            var persona = await contexto.Personas.FindAsync(id);
+            if (persona == null)
+            {
+               return false;
+            }
+            contexto.Personas.Remove(persona);
+            int response = await contexto.SaveChangesAsync();
+            return response == 1;
         }
 
         public async Task<bool> InsertarPersona(Persona persona)
@@ -41,14 +48,30 @@ namespace Coling.API.Afiliado.Implementacion
             return lista;
         }
 
-        public Task<bool> ModificarPersona(Persona persona, int id)
+        public async Task<bool> ModificarPersona(Persona persona, int id)
         {
-            throw new NotImplementedException();
+            var personaExistente = await contexto.Personas.FindAsync(id);
+            if (personaExistente == null)
+            {
+                return false;
+            }
+            personaExistente.Nombre = persona.Nombre;
+            personaExistente.Apellidos = persona.Apellidos;
+            personaExistente.FechaNacimiento = persona.FechaNacimiento;
+            personaExistente.Foto = persona.Foto;
+
+            int response = await contexto.SaveChangesAsync();
+            return response == 1;
         }
 
-        public Task<Persona> ObtnerPersonaById(int id)
+        public async Task<Persona> ObtnerPersonaById(int id)
         {
-            throw new NotImplementedException();
+            var persona = await contexto.Personas.FindAsync(id);
+            if (persona == null)
+            {
+                throw new Exception($"No se encontró ninguna persona con el ID {id}");
+            }
+            return persona;
         }
     }
 }
