@@ -29,8 +29,6 @@ namespace Coling.Shared
         [StringLength(20)]
         public string? Estado { get; set; }
 
-        public List<Estudios>? Estudios { get; set; }
 
-        public List<ExperienciaLaboral>? ExperienciasLaborales { get; set; }
     }
 }
