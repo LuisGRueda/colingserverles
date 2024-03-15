@@ -7,11 +7,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Azure.Data.Tables" Version="12.8.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.20.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.1.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.16.2" />
     <PackageReference Include="Microsoft.ApplicationInsights.WorkerService" Version="2.21.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.ApplicationInsights" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Coling.Shared\Coling.Shared.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
@@ -24,5 +29,14 @@
   </ItemGroup>
   <ItemGroup>
     <Using Include="System.Threading.ExecutionContext" Alias="ExecutionContext" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Contratos\Logica\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\Ingenieria en Sistemas\Modalidad de Grado II - 3\Nuevas Tecnologias\colingserverles\Coling\Coling.API.Curriculum\.editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\Ingenieria en Sistemas\Modalidad de Grado II - 3\Nuevas Tecnologias\colingserverles\Coling\Coling.API.Curriculum\.editorconfig" />
   </ItemGroup>
 </Project>
