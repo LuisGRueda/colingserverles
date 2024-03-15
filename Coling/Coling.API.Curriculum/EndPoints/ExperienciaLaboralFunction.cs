@@ -1,4 +1,3 @@
-using Azure.Data.Tables;
 using Coling.API.Curriculum.Contratos.Repositorios;
 using Coling.API.Curriculum.Modelo;
 using Microsoft.Azure.Functions.Worker;
@@ -8,33 +7,35 @@ using System.Net;
 
 namespace Coling.API.Curriculum.EndPoints
 {
-    public class InstitucionFunction
+    public class ExperienciaLaboralFunction
     {
-        private readonly ILogger<InstitucionFunction> _logger;
-        private readonly IInstitucionRepositorio repos;
+        private readonly ILogger<ExperienciaLaboralFunction> _logger;
+        private readonly IExperienciaLaboralRepositorio repos;
 
-        public InstitucionFunction(ILogger<InstitucionFunction> logger,IInstitucionRepositorio repos)
+        public ExperienciaLaboralFunction(ILogger<ExperienciaLaboralFunction> logger, IExperienciaLaboralRepositorio repos)
         {
             _logger = logger;
             this.repos = repos;
         }
 
-        [Function("InsertarInstitucion")]
-        public async Task<HttpResponseData> InsertarInstitucion([HttpTrigger(AuthorizationLevel.Function, "post", Route = "insertarpersona")] HttpRequestData req)
+        [Function("InsertarExperienciaLboral")]
+        public async Task<HttpResponseData> InsertarExperienciaLaboral([HttpTrigger(AuthorizationLevel.Function, "post", Route = "insertarpersona")] HttpRequestData req)
         {
             HttpResponseData respuesta;
             try
             {
-                var registro = await req.ReadFromJsonAsync<Institucion>() ?? throw new Exception("ingrese");
-                registro.RowKey=Guid.NewGuid().ToString();
-                registro.Timestamp=DateTime.UtcNow;
+                var registro = await req.ReadFromJsonAsync<ExperienciaLaboral>() ?? throw new Exception("ingrese");
+                registro.RowKey = Guid.NewGuid().ToString();
+                registro.Timestamp = DateTime.UtcNow;
                 bool sw = await repos.Create(registro);
                 if (sw)
                 {
-                    respuesta=req.CreateResponse(HttpStatusCode.OK);
+                    respuesta = req.CreateResponse(HttpStatusCode.OK);
                     return respuesta;
                 }
-                else { respuesta = req.CreateResponse(HttpStatusCode.BadRequest);
+                else
+                {
+                    respuesta = req.CreateResponse(HttpStatusCode.BadRequest);
                     return respuesta;
                 }
 
@@ -46,8 +47,8 @@ namespace Coling.API.Curriculum.EndPoints
             }
 
         }
-        [Function("ListarInstitucion")]
-        public async Task<HttpResponseData> ListarInstitucion([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestData req)
+        [Function("ListarExperienciaLaboral")]
+        public async Task<HttpResponseData> ListarExperienciaLaboral([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestData req)
         {
             HttpResponseData respuesta;
             try
@@ -64,8 +65,8 @@ namespace Coling.API.Curriculum.EndPoints
             }
 
         }
-        [Function("EliminarInstitucion")]
-        public async Task<HttpResponseData> EliminarInstitucion([HttpTrigger(AuthorizationLevel.Function, "delete", Route = "instituciones/{partitionKey}/{rowKey}")] HttpRequestData req, string partitionKey, string rowKey)
+        [Function("EliminarExperienciaLaboral")]
+        public async Task<HttpResponseData> EliminarExperienciaLaboral([HttpTrigger(AuthorizationLevel.Function, "delete", Route = "ExperienciaLaborales/{partitionKey}/{rowKey}")] HttpRequestData req, string partitionKey, string rowKey)
         {
             HttpResponseData respuesta;
             try
@@ -87,17 +88,17 @@ namespace Coling.API.Curriculum.EndPoints
                 return respuesta;
             }
         }
-        [Function("ObtenerInstitucion")]
-        public async Task<HttpResponseData> ObtenerInstitucion([HttpTrigger(AuthorizationLevel.Function, "get", Route = "instituciones/{id}")] HttpRequestData req, string id)
+        [Function("ObtenerExperienciaLaboral")]
+        public async Task<HttpResponseData> ObtenerExperienciaLaboral([HttpTrigger(AuthorizationLevel.Function, "get", Route = "ExperienciaLaborales/{id}")] HttpRequestData req, string id)
         {
             HttpResponseData respuesta;
             try
             {
-                var institucion = await repos.Get(id);
-                if (institucion != null)
+                var ExperienciaLaboral = await repos.Get(id);
+                if (ExperienciaLaboral != null)
                 {
                     respuesta = req.CreateResponse(HttpStatusCode.OK);
-                    await respuesta.WriteAsJsonAsync(institucion);
+                    await respuesta.WriteAsJsonAsync(ExperienciaLaboral);
                 }
                 else
                 {
@@ -112,25 +113,27 @@ namespace Coling.API.Curriculum.EndPoints
                 return respuesta;
             }
         }
-        [Function("ActualizarInstitucion")]
-        public async Task<HttpResponseData> ActualizarInstitucion(
-    [HttpTrigger(AuthorizationLevel.Function, "put", Route = "instituciones")] HttpRequestData req)
+        [Function("ActualizarExperienciaLaboral")]
+        public async Task<HttpResponseData> ActualizarExperienciaLaboral(
+    [HttpTrigger(AuthorizationLevel.Function, "put", Route = "ExperienciaLaboral")] HttpRequestData req)
         {
             HttpResponseData respuesta;
             try
             {
-                var contenido = await req.ReadFromJsonAsync<Institucion>() ?? throw new Exception("ingrese");
+                var contenido = await req.ReadFromJsonAsync<ExperienciaLaboral>() ?? throw new Exception("ingrese");
 
-                Institucion institucion = new Institucion
+                ExperienciaLaboral ExperienciaLaboral = new ExperienciaLaboral
                 {
                     PartitionKey = contenido.PartitionKey,
                     RowKey = contenido.RowKey,
-                    Nombre = contenido.Nombre,
-                    Tipo=contenido.Tipo,
-                    Direccion=contenido.Direccion,
-                    Estado=contenido.Estado
+                    Afiliado = contenido.Afiliado,
+                    Institucion = contenido.Institucion,
+                    CargoTitulo=contenido.CargoTitulo,
+                    FechaInicio = contenido.FechaInicio,
+                    FechaFinal = contenido.FechaFinal,
+                    Estado = contenido.Estado
                 };
-                var resultado = await repos.Update(institucion);
+                var resultado = await repos.Update(ExperienciaLaboral);
                 if (resultado)
                 {
                     respuesta = req.CreateResponse(HttpStatusCode.OK);
@@ -147,9 +150,5 @@ namespace Coling.API.Curriculum.EndPoints
                 return respuesta;
             }
         }
-
-
     }
-
 }
-

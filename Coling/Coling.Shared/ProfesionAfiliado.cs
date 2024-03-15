@@ -22,8 +22,6 @@ namespace Coling.Shared
         [Required]
         public int IdProfesion { get; set; }
 
-        [ForeignKey("IdProfesion")]
-        public Profesion? Profesion { get; set; }
 
         [Required]
         public DateTime FechaAsignacion { get; set; }
