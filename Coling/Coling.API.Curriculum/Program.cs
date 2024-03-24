@@ -5,18 +5,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 var host = new HostBuilder()
-    .ConfigureFunctionsWorkerDefaults()
+    .ConfigureFunctionsWorkerDefaults(/*worker=>worker.UseNewtonsoftJson()*/)
     .ConfigureServices(services =>
     {
+
         services.AddApplicationInsightsTelemetryWorkerService();
         services.ConfigureFunctionsApplicationInsights();
         services.AddScoped<IInstitucionRepositorio,InstitucionRepositorio>();
         services.AddScoped<IProfesionRepositorio, ProfesionRepositorio>();
-
         services.AddScoped<IEstudiosRepositorio, EstudiosRepositorio>();
-
         services.AddScoped<IExperienciaLaboralRepositorio, ExperienciaLaboralRepositorio>();
-
     })
     .Build();
 

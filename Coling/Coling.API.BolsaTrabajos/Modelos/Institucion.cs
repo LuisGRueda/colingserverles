@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
 
-namespace Coling.Shared
+namespace Coling.API.BolsaTrabajos.Modelos
 {
+
     [Serializable, BsonIgnoreExtraElements]
     public class Institucion
     {
@@ -30,6 +24,7 @@ namespace Coling.Shared
 
         [BsonElement("estado"), BsonRepresentation(BsonType.String)]
         public string Estado { get; set; } = null!;
+
 
 
     }

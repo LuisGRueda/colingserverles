@@ -19,7 +19,7 @@ namespace Coling.API.Curriculum.EndPoints
         }
 
         [Function("InsertarEstudios")]
-        public async Task<HttpResponseData> InsertarEstudios([HttpTrigger(AuthorizationLevel.Function, "post", Route = "insertarpersona")] HttpRequestData req)
+        public async Task<HttpResponseData> InsertarEstudios([HttpTrigger(AuthorizationLevel.Function, "post", Route = "insertarestudio")] HttpRequestData req)
         {
             HttpResponseData respuesta;
             try
