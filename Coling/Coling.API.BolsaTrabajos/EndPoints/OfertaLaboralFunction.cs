@@ -84,7 +84,7 @@ namespace Coling.API.BolsaTrabajos.EndPoints
             HttpResponseData respuesta;
             try
             {
-                var registro = await req.ReadFromJsonAsync<OfertaLaboral>() ?? throw new Exception("Debe ingresar una Oferta con todos sus datos");
+                var registro = await req.ReadFromJsonAsync<OfertaLaboral>() ?? throw new Exception("Debe ingresar una Oferta Laboral con todos sus datos");
                 bool seGuardo = await repos.Create(registro);
                 if (seGuardo)
                 {
@@ -114,7 +114,7 @@ namespace Coling.API.BolsaTrabajos.EndPoints
             HttpResponseData respuesta;
             try
             {
-                var oferta = await req.ReadFromJsonAsync<OfertaLaboral>() ?? throw new Exception("Debe ingresar una Oferta con todos sus datos");
+                var oferta = await req.ReadFromJsonAsync<OfertaLaboral>() ?? throw new Exception("Debe ingresar una Oferta Laboral con todos sus datos");
                 bool seModifico = await repos.Update(oferta);
                 if (seModifico)
                 {
