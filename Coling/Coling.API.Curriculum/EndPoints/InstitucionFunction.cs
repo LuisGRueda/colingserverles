@@ -1,8 +1,8 @@
-using Azure.Data.Tables;
 using Coling.API.Curriculum.Contratos.Repositorios;
 using Coling.API.Curriculum.Modelo;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
@@ -13,28 +13,30 @@ namespace Coling.API.Curriculum.EndPoints
         private readonly ILogger<InstitucionFunction> _logger;
         private readonly IInstitucionRepositorio repos;
 
-        public InstitucionFunction(ILogger<InstitucionFunction> logger,IInstitucionRepositorio repos)
+        public InstitucionFunction(ILogger<InstitucionFunction> logger, IInstitucionRepositorio repos)
         {
             _logger = logger;
             this.repos = repos;
         }
 
         [Function("InsertarInstitucion")]
-        public async Task<HttpResponseData> InsertarInstitucion([HttpTrigger(AuthorizationLevel.Function, "post", Route = "insertarpersona")] HttpRequestData req)
+        public async Task<HttpResponseData> InsertarInstitucion([HttpTrigger(AuthorizationLevel.Function, "post", Route = "insertarinstitucion")] HttpRequestData req)
         {
             HttpResponseData respuesta;
             try
             {
                 var registro = await req.ReadFromJsonAsync<Institucion>() ?? throw new Exception("ingrese");
-                registro.RowKey=Guid.NewGuid().ToString();
-                registro.Timestamp=DateTime.UtcNow;
+                registro.RowKey = Guid.NewGuid().ToString();
+                registro.Timestamp = DateTime.UtcNow;
                 bool sw = await repos.Create(registro);
                 if (sw)
                 {
-                    respuesta=req.CreateResponse(HttpStatusCode.OK);
+                    respuesta = req.CreateResponse(HttpStatusCode.OK);
                     return respuesta;
                 }
-                else { respuesta = req.CreateResponse(HttpStatusCode.BadRequest);
+                else
+                {
+                    respuesta = req.CreateResponse(HttpStatusCode.BadRequest);
                     return respuesta;
                 }
 
@@ -47,6 +49,8 @@ namespace Coling.API.Curriculum.EndPoints
 
         }
         [Function("ListarInstitucion")]
+        [OpenApiOperation("Listarspec", "ListarInstitucion", Description = "Sirve para listar todas las instituciones")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(List<Institucion>), Description = "mostrar lista de instituciones")]
         public async Task<HttpResponseData> ListarInstitucion([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestData req)
         {
             HttpResponseData respuesta;
@@ -126,9 +130,9 @@ namespace Coling.API.Curriculum.EndPoints
                     PartitionKey = contenido.PartitionKey,
                     RowKey = contenido.RowKey,
                     Nombre = contenido.Nombre,
-                    Tipo=contenido.Tipo,
-                    Direccion=contenido.Direccion,
-                    Estado=contenido.Estado
+                    Tipo = contenido.Tipo,
+                    Direccion = contenido.Direccion,
+                    Estado = contenido.Estado
                 };
                 var resultado = await repos.Update(institucion);
                 if (resultado)
