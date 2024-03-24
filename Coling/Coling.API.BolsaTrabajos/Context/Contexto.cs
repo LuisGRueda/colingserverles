@@ -10,7 +10,7 @@ namespace Coling.API.BolsaTrabajos.Context
 {
     public class Contexto
     {
-        private readonly IMongoDatabase _basedatos;
+        private readonly IMongoDatabase basedatos;
 
         public Contexto()
         {
@@ -19,28 +19,28 @@ namespace Coling.API.BolsaTrabajos.Context
             string basedatosNombre = Environment.GetEnvironmentVariable("databaseName")!.ToString();
             var client = new MongoClient(cadenaConexion);
             if (client != null)
-                this._basedatos = client.GetDatabase(basedatosNombre);
+                this.basedatos = client.GetDatabase(basedatosNombre);
 
         }
         public IMongoCollection<Institucion> Instituciones
         {
             get
             {
-                return _basedatos.GetCollection<Institucion>("institucion");
+                return basedatos.GetCollection<Institucion>("institucion");
             }
         }
         public IMongoCollection<OfertaLaboral> Ofertas
         {
             get
             {
-                return _basedatos.GetCollection<OfertaLaboral>("ofertalaboral");
+                return basedatos.GetCollection<OfertaLaboral>("ofertalaboral");
             }
         }
         public IMongoCollection<Solicitud> Solicitudes
         {
             get
             {
-                return _basedatos.GetCollection<Solicitud>("solicitud");
+                return basedatos.GetCollection<Solicitud>("solicitud");
             }
         }
     }

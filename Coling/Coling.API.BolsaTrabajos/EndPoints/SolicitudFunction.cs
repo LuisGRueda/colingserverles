@@ -44,7 +44,7 @@ namespace Coling.API.BolsaTrabajos.EndPoints
         }
 
         [Function("ObtenerSolicitudId")]
-        [OpenApiOperation("Obtenerspec", "ObtenerSolicitudId", Description = "Sirve para obtener una Solicitud")]
+        [OpenApiOperation("Obtenerspec", "ObtenerSolicitudId", Description = "Sirve para obtener una Solicitud por un id")]
         [OpenApiParameter(name: "id", In = ParameterLocation.Path, Required = true, Type = typeof(string))]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(Solicitud), Description = "Mostrara una Solicitud")]
         public async Task<HttpResponseData> ObtenerSolicitudById([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ObtenerSolicitudId/{id}")] HttpRequestData req, string id)

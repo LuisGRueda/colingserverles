@@ -82,7 +82,7 @@ namespace Coling.API.BolsaTrabajos.EndPoints
             HttpResponseData? respuesta = null;
             try
             {
-                var institucion = await req.ReadFromJsonAsync<Institucion>() ?? throw new Exception("Debe ingresar una Institucion con todos sus datos");
+                var institucion = await req.ReadFromJsonAsync<Institucion>() ?? throw new Exception("Debe ingresar una Institucion con todos sus datos Correctos");
                 bool seGuardo = await repos.Create(institucion);
                 if (seGuardo)
                 {
