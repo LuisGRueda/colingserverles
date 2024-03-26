@@ -7,7 +7,7 @@ namespace Coling.Repositorio
     {
         public static string CONECTAR
         {
-            get { return @"Data Source=DESKTOP-G98SBMU\\SQLSERVER22;Initial Catalog=ColingSecurityBD;Integrated Security=True;TrustServerCertificate=true"; }
+            get { return @"Data Source=DESKTOP-G98SBMU\SQLSERVER22;Initial Catalog=ColingSecurityBD;Integrated Security=True;Encrypt=True;TrustServerCertificate=True"; }
             //get { return ConfigurationManager.ConnectionStrings["cadena"].ToString(); }
         }
         public static DataSet EjecutarDataSet(string consulta)
@@ -68,7 +68,5 @@ namespace Coling.Repositorio
                 }
             }
         }
-
-
     }
 }

@@ -16,7 +16,7 @@ namespace Coling.Autentificacion
         private readonly ILogger<AccountFunction> _logger;
         private readonly IUsuarioRepositorio usuarioRepositorio;
 
-        public AccountFunction(ILogger<AccountFunction> logger,IUsuarioRepositorio usuarioRepositorio)
+        public AccountFunction(ILogger<AccountFunction> logger, IUsuarioRepositorio usuarioRepositorio)
         {
             _logger = logger;
             this.usuarioRepositorio = usuarioRepositorio;
